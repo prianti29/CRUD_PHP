@@ -1,9 +1,7 @@
 <?php
-/*echo "<pre>";
-var_dump($_POST);
-echo "</pre>";*/
+
 session_start();
-$approot = $_SERVER['DOCUMENT_ROOT'].'/CRUD/';
+include_once($_SERVER['DOCUMENT_ROOT']."/CRUD/config.php");
 
 if($_FILES['picture']['name'] != ''){
     // Working with image

@@ -1,29 +1,10 @@
 
 <?php
-
-$_id = $_GET['id'];
-
-//Connect to database
-$conn = new PDO("mysql:host=localhost;dbname=ecommerce",
-    'root', '');
-//set the PDO error mode to exception
-$conn->setAttribute(PDO::ATTR_ERRMODE,
-    PDO::ERRMODE_EXCEPTION);
-
-$query = "SELECT * FROM `admin` WHERE id = :id";
-
-$stmt = $conn->prepare($query);
-
-$stmt->bindParam(':id', $_id);
-
-$result = $stmt->execute();
-
-$admin = $stmt->fetch();
-
-/*echo "<pre>";
-print_r($product);
-echo "</pre>";*/
-
+$approot = $_SERVER['DOCUMENT_ROOT']."/CRUD/";
+include_once($approot. "vendor/autoload.php"); //connect with vendor
+use bitm\admin;
+$_admin = new Admin();
+$admin= $_admin->edit();
 ?>
 
 <!doctype html>

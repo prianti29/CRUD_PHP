@@ -1,29 +1,17 @@
 <?php
 
-$webroot = 'http://localhost/CRUD/';
 
-$_id = $_GET['id'];
+//connect with root
+$approot = $_SERVER['DOCUMENT_ROOT']."/CRUD/";
 
-//Connect to database
-$conn = new PDO("mysql:host=localhost;dbname=ecommerce",
-    'root', '');
-//set the PDO error mode to exception
-$conn->setAttribute(PDO::ATTR_ERRMODE,
-    PDO::ERRMODE_EXCEPTION);
+include_once($approot. "vendor/autoload.php"); //connect with vendor
+use bitm\Banner;
 
-$query = "SELECT * FROM `banner` WHERE id = :id";
+$_banner = new Banner();
 
-$stmt = $conn->prepare($query);
+$banner= $_banner->edit();
 
-$stmt->bindParam(':id', $_id);
 
-$result = $stmt->execute();
-
-$banner = $stmt->fetch();
-
-/*echo "<pre>";
-print_r($product);
-echo "</pre>";*/
 
 ?>
 

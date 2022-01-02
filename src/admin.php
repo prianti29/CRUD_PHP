@@ -5,7 +5,9 @@ namespace bitm;
 use PDO;
 
 class Admin{
-    public function index(){
+    //Index function
+    public function index()
+    {
         session_start();
 
         //Connect to database
@@ -21,7 +23,7 @@ class Admin{
         $stmt = $conn->prepare($query);
         
         $result = $stmt->execute();
-        
+    
         $admins = $stmt->fetchAll();
         return $admins;
         
@@ -30,56 +32,73 @@ class Admin{
         echo "</pre>";*/
 
     }
-    public function show(){
-        
+    //show function
+    public function show()
+    {
+            $_id = $_GET['id'];
 
-$_id = $_GET['id'];
+            //Connect to database
+            $conn = new PDO("mysql:host=localhost;dbname=ecommerce",
+                'root', '');
+            //set the PDO error mode to exception
+            $conn->setAttribute(PDO::ATTR_ERRMODE,
+                PDO::ERRMODE_EXCEPTION);
 
-//Connect to database
-$conn = new PDO("mysql:host=localhost;dbname=ecommerce",
-    'root', '');
-//set the PDO error mode to exception
-$conn->setAttribute(PDO::ATTR_ERRMODE,
-    PDO::ERRMODE_EXCEPTION);
+            $query = "SELECT * FROM `admin` WHERE id = :id";
 
-$query = "SELECT * FROM `admin` WHERE id = :id";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':id', $_id);
 
-$stmt = $conn->prepare($query);
+            $result = $stmt->execute();
 
-$stmt->bindParam(':id', $_id);
-
-$result = $stmt->execute();
-
-$admin = $stmt->fetch();
-return $admin;
+            $admin = $stmt->fetch();
+            return $admin;
     }
+
+    // Delete function
     public function delete()
     {
-session_start();
+        session_start();
 
-$_id = $_GET['id'];
+        $_id = $_GET['id'];
 
-//Connect to database
-$conn = new PDO("mysql:host=localhost;dbname=ecommerce",
-    'root', '');
-//set the PDO error mode to exception
-$conn->setAttribute(PDO::ATTR_ERRMODE,
-    PDO::ERRMODE_EXCEPTION);
+        //Connect to database
+        $conn = new PDO("mysql:host=localhost;dbname=ecommerce",
+            'root', '');
+        //set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE,
+            PDO::ERRMODE_EXCEPTION);
 
-$query = "DELETE FROM `admin` WHERE `admin`.`id` = :id";
+        $query = "DELETE FROM `admin` WHERE `admin`.`id` = :id";
 
-$stmt = $conn->prepare($query);
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':id', $_id);
 
-$stmt->bindParam(':id', $_id);
+        $result = $stmt->execute();
+        if ($result){
+            $_SESSION['message'] = "Admin is deleted successfully";
+        }else{
+            $_SESSION['message'] = "Admin is not deleted";
+        }
+        header("location:index.php");
+    }
 
-$result = $stmt->execute();
-if ($result){
-    $_SESSION['message'] = "Admin is deleted successfully";
-}else{
-    $_SESSION['message'] = "Admin is not deleted";
-}
 
-header("location:index.php");
+    public function Edit()
+    {     
+        $_id = $_GET['id'];
+        //Connect to database
+        $conn = new PDO("mysql:host=localhost;dbname=ecommerce",
+            'root', '');
+        //set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE,
+            PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT * FROM `admin` WHERE id = :id";
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':id', $_id);
+        $result = $stmt->execute();
+        $admin = $stmt->fetch();
+        return $admin;
     }
 }
 

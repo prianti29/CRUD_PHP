@@ -1,9 +1,6 @@
 <?php
-
 namespace bitm;
 use PDO;
-
-
 class Products
 {
     public function index(){
@@ -42,11 +39,7 @@ $result = $stmt->execute();
 
 $product = $stmt->fetch();
 return $product;
-
-
-
     }
-
 }
 ?>
 
