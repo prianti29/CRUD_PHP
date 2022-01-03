@@ -1,6 +1,4 @@
-
 <?php
-
 
 ?>
 
@@ -19,6 +17,7 @@
             <div class="col-md-5">
                 <h1 class="text-center mb-4">Add New Admin</h1>
                 <form method="post" action="store.php" enctype="multipart/form-data">
+                  <!--id  -->
                     <div class="mb-3 row">
                         <label for="inputId" class="col-md-3 col-form-label"></label>
                         <div class="col-md-9">
@@ -31,6 +30,7 @@
                             >
                         </div>
                     </div>
+                    <!-- Name -->
                     <div class="mb-3 row">
                         <label for="inputName" class="col-md-3 col-form-label">Name:</label>
                         <div class="col-md-9">
@@ -43,6 +43,7 @@
                             >
                         </div>
                     </div>
+                    <!-- Email -->
                     <div class="mb-3 row">
                         <label for="inputName" class="col-md-3 col-form-label">Email:</label>
                         <div class="col-md-9">
@@ -55,6 +56,7 @@
                             >
                         </div>
                     </div>
+                    <!-- Password -->
                     <div class="mb-3 row">
                         <label for="inputName" class="col-md-3 col-form-label">Password:</label>
                         <div class="col-md-9">
@@ -67,7 +69,7 @@
                             >
                         </div>
                     </div>
-
+                    <!-- Submission Button -->
                     <div class="mb-3 row">
                         <div class="col-auto">
                             <button type="submit" class="btn btn-primary mb-3">Submit</button>

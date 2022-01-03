@@ -3,9 +3,12 @@
 include_once($_SERVER['DOCUMENT_ROOT']."/CRUD/config.php");
 use bitm\Banner;
 
+// $_id = $_GET['id'];
+
 $_banner = new Banner();
 
-$banner= $_banner->show();
+// $banner= $_banner->show($_id);
+$banner= $_banner->show($_id);
 
 ?>
 

@@ -1,12 +1,18 @@
-
 <?php
 
-$approot = $_SERVER['DOCUMENT_ROOT']."/CRUD/";
+
+include_once($_SERVER['DOCUMENT_ROOT']."/CRUD/config.php");
 
 use bitm\admin;
+
 $_admin = new Admin();
 
-$admin= $_admin->show();
+$admin = $_admin->show();
+
+/*echo "<pre>";
+print_r($product);
+echo "</pre>";*/
+
 ?>
 
 
@@ -40,20 +46,17 @@ $admin= $_admin->show();
                     <dt class="col-md-6">Password:</dt>
                     <dd class="col-md-6"><?= $admin['password'];?></dd>
                 </dl>
-
-                <!-- created_at -->
-
                 <dl class="row">
-                    <dt class="col-md-2">created_at:</dt>
-                    <dt class="col-md-4"> </dt>
-                    <dd class="col-md-6"><?= $admin['created_at'];?></dd>
-                </dl>  
-                <!-- modified_at -->
-
+                    <dt class="col-md-6">Phone:</dt>
+                    <dd class="col-md-6"><?= $admin['phone'];?></dd>
+                </dl>
                 <dl class="row">
-                    <dt class="col-md-2">modified_at:</dt>
-                    <dt class="col-md-4"> </dt>
-                    <dd class="col-md-6"><?= $admin['modified_at'];?></dd>
+                    <dt class="col-md-2">Created AT:</dt>
+                    <dd class="col-md-10"><?= $admin['created_at'];?></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-2">Modified AT:</dt>
+                    <dd class="col-md-10"><?= $admin['modified_at'];?></dd>
                 </dl>
             </div>
         </div>

@@ -1,46 +1,12 @@
-
 <?php
-/*echo "<pre>";
-var_dump($_POST);
-echo "</pre>";*/
-session_start();
 
-$_id = $_POST['id'];
-$_name = $_POST['name'];
-$_email = $_POST['email'];
-$_password = $_POST['password'];
-$_modified_at = date('Y-m-d h:i:m', time());
-//echo $_name;
+include_once($_SERVER['DOCUMENT_ROOT']."/CRUD/config.php");
 
-//Connect to database
-$conn = new PDO("mysql:host=localhost;dbname=ecommerce",
-    'root', '');
-//set the PDO error mode to exception
-$conn->setAttribute(PDO::ATTR_ERRMODE,
-    PDO::ERRMODE_EXCEPTION);
-$query = "UPDATE `admin` SET `name` = :name, 
-                               `email` = :email, 
-                               `password` = :password,
-                               `modified_at` = :modified_at
-          WHERE `admin`.`id` = :id";
+use Bitm\Admin;
 
-$stmt = $conn->prepare($query);
+$_admin = new Admin();
 
-$stmt->bindParam(':id', $_id);
-$stmt->bindParam(':name', $_name);
-$stmt->bindParam(':email', $_email);
-$stmt->bindParam(':password', $_password);
-$stmt->bindParam(':modified_at',$_modified_at);
+$admin = $_admin->update();
 
-$result = $stmt->execute();
-
-//var_dump($result);
-
-if ($result){
-    $_SESSION['message'] = "Admin is updated successfully";
-}else{
-    $_SESSION['message'] = "Admin is not updated";
-}
-header("location:index.php");
 ?>
 

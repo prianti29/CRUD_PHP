@@ -1,13 +1,15 @@
-
 <?php
 
-$approot = $_SERVER['DOCUMENT_ROOT']."/CRUD/";
-include_once($approot. "vendor/autoload.php"); //connect with vendor
-use bitm\admin;
+include_once($_SERVER['DOCUMENT_ROOT']."/CRUD/config.php");
+
+use bitm\Admin;
+
 $_admin = new Admin();
 
-$admins= $_admin->index();
-
+$admins = $_admin->index();
+/*echo "<pre>";
+print_r($products);
+echo "</pre>";*/
 ?>
 
 <!doctype html>

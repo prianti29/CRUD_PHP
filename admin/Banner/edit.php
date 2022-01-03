@@ -1,18 +1,15 @@
 <?php
-
-
 //connect with root
 $approot = $_SERVER['DOCUMENT_ROOT']."/CRUD/";
 
 include_once($approot. "vendor/autoload.php"); //connect with vendor
 use bitm\Banner;
 
+$_id = $_GET['id'];
+
 $_banner = new Banner();
 
-$banner= $_banner->edit();
-
-
-
+$banner= $_banner->edit($_id);
 ?>
 
 <!doctype html>
@@ -28,6 +25,13 @@ $banner= $_banner->edit();
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-5">
+                <!-- For validation of update -->
+                <?php
+                        session_start();
+                        echo $_SESSION['message'];
+                        $_SESSION['message'] = "";
+                ?> 
+                <!-- Design starts here -->
                 <h1 class="text-center mb-4">Edit</h1>
                 <form method="post" action="update.php" enctype="multipart/form-data">
                     <!-- Id -->
