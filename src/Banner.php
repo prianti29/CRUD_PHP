@@ -28,6 +28,7 @@ class Banner
         $result = $stmt->execute();
 
         $banners = $stmt->fetchAll();
+
         return $banners;
 
     }
@@ -43,6 +44,7 @@ class Banner
         $result = $stmt->execute();
 
         $banner = $stmt->fetch();
+
         return $banner;
     }
     //Delete function
@@ -56,6 +58,7 @@ class Banner
         $stmt->bindParam(':id', $_id);
 
         $result = $stmt->execute();
+
         if ($result)
         {
             $_SESSION['message'] = "Banner is deleted successfully";
@@ -65,9 +68,11 @@ class Banner
             $_SESSION['message'] = "Banner is not deleted";
         }
         header("location:index.php");
+
+        return $result;
     }
     // Edit function
-    public function Edit()
+    public function Edit($id)
     {
             
         $_id = $_GET['id'];
@@ -81,6 +86,7 @@ class Banner
         $result = $stmt->execute();
 
         $banner = $stmt->fetch();
+
         return $banner;
     }
     //Store function
@@ -94,6 +100,7 @@ class Banner
         {
             $_is_active = $data['is_active'];
         } 
+
         else 
         {
             $_is_active = 0;
@@ -136,9 +143,10 @@ class Banner
         header("location:index.php");
         return $result;
     }
+    //Update function
     public function Update($data)
     {
-    $_picture = $this->upload();
+        $_picture = $this->upload();
 
         $_id = $data['id'];
         $_title = $data['title'];
@@ -162,57 +170,58 @@ class Banner
         }
         $_link = $data['link'];
         $_promotional_message = $data['promotional_message'];
-//echo $_title;
-        $_modified_at = date('Y-m-d h:i:s',time());
+        //echo $_title;
+                $_modified_at = date('Y-m-d h:i:s',time());
 
-        $query = "UPDATE `banner` SET `title` = :title, 
-                        `is_active` = :is_active, 
-                        `is_draft` = :is_draft,
-                        `link` = :link, 
-                        `promotional_message` = :promotional_message,
-                        `picture` = :picture,
-                        `modified_at` = :modified_at 
-        WHERE `banner`.`id` = :id";
+                $query = "UPDATE `banner` SET `title` = :title, 
+                                `is_active` = :is_active, 
+                                `is_draft` = :is_draft,
+                                `link` = :link, 
+                                `promotional_message` = :promotional_message,
+                                `picture` = :picture,
+                                `modified_at` = :modified_at 
+                WHERE `banner`.`id` = :id";
 
-        $stmt = $this->conn->prepare($query);
+                $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(':title', $_title);
-        $stmt->bindParam(':is_active', $_is_active);
-        $stmt->bindParam(':is_draft', $_is_draft);
-        $stmt->bindParam(':id', $_id);
-        $stmt->bindParam(':link', $_link);
-        $stmt->bindParam(':promotional_message', $_promotional_message);
-        $stmt->bindParam(':picture', $_picture);
-        $stmt->bindParam(':modified_at', $_modified_at);
+                $stmt->bindParam(':title', $_title);
+                $stmt->bindParam(':is_active', $_is_active);
+                $stmt->bindParam(':is_draft', $_is_draft);
+                $stmt->bindParam(':id', $_id);
+                $stmt->bindParam(':link', $_link);
+                $stmt->bindParam(':promotional_message', $_promotional_message);
+                $stmt->bindParam(':picture', $_picture);
+                $stmt->bindParam(':modified_at', $_modified_at);
 
-        $result = $stmt->execute();
-        if ($result){
-            $_SESSION['message'] = "Banner is updated successfully";
-        }
-        else
+                $result = $stmt->execute();
+                if ($result){
+                    $_SESSION['message'] = "Banner is updated successfully";
+                }
+                else
+                {
+                    $_SESSION['message'] = "Banner is not updated";
+                }
+
+                // this is for the location set to store.php to main home page index.php
+                header("location:index.php");
+                return $result;
+            }
+                
+
+        //funtion for upload  which is used for store and update
+
+        //Upload function
+        private function upload()
         {
-            $_SESSION['message'] = "Banner is not updated";
-        }
-
-        // this is for the location set to store.php to main home page index.php
-        header("location:index.php");
-    }
-        
-
-//funtion for upload  which is used for store and update
-
-    private function upload()
-    {
-           
             $approot = $_SERVER['DOCUMENT_ROOT']."/CRUD/";
             $_picture = null;
 
             if($_FILES['picture']['name'] != "")
             {   
                 // Working with image
-                $filename = "IMG_".time().' '.$_FILES['picture']['name'];
-                $target = $_FILES['picture']['tmp_name'];
-                $destination = $approot.'uploads/' .$filename;
+                $filename = 'IMG_'.time().'_'.$_FILES['picture']['name'];
+            $target = $_FILES['picture']['tmp_name'];
+            $destination = $approot.'uploads/'.$filename;
 
                 $isFileMoved = move_uploaded_file($target, $destination);
                 if ($isFileMoved)

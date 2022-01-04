@@ -18,7 +18,7 @@ if(is_empty($data['title']))
 {
     session_start();
     $_SESSION['message'] = "Title can't be empty.Please enter title";
-    header('location:create.php?=' .$data['id']);
+    header('location:edit.php?id='.$data['id']);
 }
 else{
     $_banner = new Banner();
